@@ -12,12 +12,18 @@ class Score(Turtle):
         self.speed("fastest")
         self.goto(0, 270)
         self.score = 0
+        with open('high_score.txt', mode='r') as f:
+            self.high_score = int(f.read())
         self.update_score()
 
-    def game_over(self):
-        self.goto(0, 0)
-        self.write(f"Game Over!", move=False, align=ALIGNMENT, font=FONT)
+    def reset_game(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            with open('high_score.txt', mode='w') as f:
+                f.write(str(self.score))
+        self.score = 0
+        self.update_score()
 
     def update_score(self):
         self.clear()
-        self.write(f"Score: {self.score}", move=False, align=ALIGNMENT, font=FONT)
+        self.write(f"Score: {self.score} | High Score: {self.high_score}", move=False, align=ALIGNMENT, font=FONT)
