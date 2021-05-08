@@ -29,6 +29,11 @@ class Snake:
         self.add_segment(self.body[-1].position())
         self.length += 1
 
+    def reset(self):
+        for segment in self.body:
+            segment.goto(1000, 1000)
+        self.__init__()
+
     def move(self):
         for index in range(self.length - 1, 0, -1):
             position = self.body[index - 1].pos()
